@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌦 Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🌤️ Weather Forecast</h1>
+        <p class="subtitle">Check live weather conditions around the world</p>
+
+        <form method="POST" class="search-form">
+            <input type="text" name="city" placeholder="Enter city name..." required>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if weather %}
+            {% if weather.cod == 200 %}
+                <div class="card fade-in">
+                    <h2>{{ weather.name }}, {{ weather.sys.country }}</h2>
+                    <h3>{{ weather.weather[0].description | title }}</h3>
+                    <p class="temp">{{ weather.main.temp }}°C</p>
+                    <div class="details">
+                        <p>💧 Humidity: <span>{{ weather.main.humidity }}%</span></p>
+                        <p>🌬️ Wind Speed: <span>{{ weather.wind.speed }} m/s</span></p>
+                        <p>🌡️ Feels Like: <span>{{ weather.main.feels_like }}°C</span></p>
+                        <p>☁️ Pressure: <span>{{ weather.main.pressure }} hPa</span></p>
+                    </div>
+                </div>
+            {% else %}
+                <p class="error">❌ City not found. Please try again!</p>
+            {% endif %}
+        {% endif %}
+
+        <footer>
+            <p>Made with ❤️ by Kaif</p>
+        </footer>
+    </div>
+</body>
+</html>

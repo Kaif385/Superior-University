@@ -1,0 +1,1 @@
+Detected animals in cat1.webp: cat

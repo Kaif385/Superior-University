@@ -1,0 +1,155 @@
+/* ----------- General Style ----------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0077b6, #48cae4, #90e0ef);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    animation: gradientShift 10s infinite alternate;
+}
+
+/* Background gradient animation */
+@keyframes gradientShift {
+    0% { background: linear-gradient(135deg, #0077b6, #48cae4, #90e0ef); }
+    100% { background: linear-gradient(135deg, #00b4d8, #0077b6, #023e8a); }
+}
+
+/* ----------- Container ----------- */
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+    padding: 30px 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* ----------- Titles ----------- */
+.title {
+    font-size: 2.3rem;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+/* ----------- Form ----------- */
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    width: 65%;
+    outline: none;
+    font-size: 1rem;
+}
+
+.search-form button {
+    background: #03045e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-form button:hover {
+    background: #00b4d8;
+}
+
+/* ----------- Weather Card ----------- */
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+    margin-top: 20px;
+    color: #fff;
+    animation: popUp 0.6s ease-out;
+}
+
+@keyframes popUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.card h2 {
+    font-size: 1.8rem;
+}
+
+.card h3 {
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.temp {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* ----------- Details ----------- */
+.details {
+    text-align: left;
+    margin-top: 15px;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.details span {
+    font-weight: 600;
+}
+
+/* ----------- Error Message ----------- */
+.error {
+    margin-top: 30px;
+    background-color: rgba(255, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* ----------- Footer ----------- */
+footer {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Small screen responsiveness */
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.8rem;
+    }
+    .temp {
+        font-size: 2.5rem;
+    }
+    .search-form {
+        flex-direction: column;
+    }
+    .search-form input {
+        width: 100%;
+    }
+}

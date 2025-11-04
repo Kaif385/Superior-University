@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detection Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detection Result</h1>
+        <p>{{ result }}</p>
+        {% if filename %}
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Detected Image">
+            <div class="glow-effect"></div>
+        </div>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="btn">Upload Another Image</a>
+    </div>
+</body>
+</html>
