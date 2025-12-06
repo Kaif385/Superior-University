@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="bot-info">
+                <div class="avatar">🧠</div>
+                <div class="status">
+                    <h3>Wellness Assistant</h3>
+                    <span class="online-dot"></span> Online
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chat-box">
+            <div class="message bot-message">
+                <div class="bubble">
+                    Hello! I am here to provide supportive information based on verified mental health resources. How can I help you today?
+                    <br><br>
+                    <small>⚠️ <em>Remember: I am an AI, not a doctor. In a crisis, please call emergency services.</em></small>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off" required>
+                <button type="submit">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = userInput.value;
+            if (!text) return;
+            addMessage(text, 'user-message');
+            userInput.value = '';
+
+            const loadingId = addLoadingBubble();
+
+            const formData = new FormData();
+            formData.append('query', text);
+
+            try {
+                const response = await fetch('/chat', { method: 'POST', body: formData });
+                const data = await response.json();
+                
+                document.getElementById(loadingId).remove();
+
+                if (data.length > 0) {
+                    const answer = data[0].answer;
+                    addMessage(answer, 'bot-message');
+                } else {
+                    addMessage("I'm sorry, I couldn't find a relevant answer in my database.", 'bot-message');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById(loadingId).remove();
+                addMessage("Sorry, something went wrong. Please try again.", 'bot-message');
+            }
+        });
+
+        function addMessage(text, type) {
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = `<div class="bubble">${text}</div>`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight; 
+        }
+
+        function addLoadingBubble() {
+            const id = 'loading-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'message bot-message';
+            div.innerHTML = `<div class="bubble typing"><span>.</span><span>.</span><span>.</span></div>`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return id;
+        }
+    </script>
+</body>
+</html>

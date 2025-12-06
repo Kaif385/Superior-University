@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Stock Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="market-bar" id="marketBar">
+            <div class="loading-msg">Loading Market Data...</div>
+        </div>
+
+        <div class="container">
+            <h1>Stock Search</h1>
+            
+            <div class="search-container">
+                <div class="input-group">
+                    <input type="text" id="tickerInput" placeholder="Enter Symbol (e.g. BTC-USD)" autocomplete="off">
+                    <button onclick="startTracking()">Track Price</button>
+                </div>
+                <div id="suggestions-box" class="suggestions-list"></div>
+            </div>
+
+            <div class="card">
+                <h2 id="displaySymbol">---</h2>
+                <div class="price-box">
+                    <span class="currency">$</span>
+                    <span id="displayPrice">0.00</span>
+                </div>
+                <div id="displayChange" class="change-indicator">0.00%</div>
+                <div class="timestamp">Last Update: <span id="displayTime">--:--:--</span></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
